@@ -1,0 +1,11 @@
+# dependencies
+/node_modules/
+
+# cache
+/.cache/
+
+# idle config
+/.vscode/
+
+# production
+/dist/
