@@ -4,10 +4,11 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "start": "parcel index.html"
+    "start": "parcel src/example01/DrawRectangle.html"
   },
   "devDependencies": {
     "parcel-bundler": "^1.12.3",
     "typescript": "^3.3.4000"
-  }
+  },
+  "dependencies": {}
 }
