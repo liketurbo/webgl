@@ -10,15 +10,15 @@ window.start = () => {
     return 1;
   }
 
-  const ctx = canvas.getContext('2d');
+  const gl = canvas.getContext('webgl');
 
-  if (!ctx) {
+  if (!gl) {
     console.log('Cannot get context');
     return 2;
   }
 
-  ctx.fillStyle = 'rgba(0, 0, 255, 1.0)';
-  ctx.fillRect(120, 10, 150, 150);
+  gl.clearColor(0, 0, 0, 1);
+  gl.clear(gl.COLOR_BUFFER_BIT);
 
   return 0;
 };
