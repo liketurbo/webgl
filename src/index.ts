@@ -1,13 +1,7 @@
 import { getWebGLContext, initShaders } from './lib/cuon-utils';
 
-// Vertex shader program
-const VSHADER_SOURCE = `void main() {
-   gl_Position = vec4(0.0, 0.0, 0.0, 1.0);
-   gl_PointSize = 10.0;
-  }`;
-
-// Fragment shader program
-const FSHADER_SOURCE = `void main() { gl_FragColor = vec4(1.0, 0.0, 0.0, 1.0); }`;
+const vertexShader = require('./shaders/vertex.glsl');
+const fragmentShader = require('./shaders/fragment.glsl');
 
 (<any>window).start = () => {
   const canvas = <HTMLCanvasElement>document.getElementById('example');
@@ -17,17 +11,29 @@ const FSHADER_SOURCE = `void main() { gl_FragColor = vec4(1.0, 0.0, 0.0, 1.0); }
     return 1;
   }
 
-  const gl = (<any>getWebGLContext)(canvas);
+  const gl = (<any>getWebGLContext)(canvas) as WebGLRenderingContext | null;
 
   if (!gl) {
     console.log('Cannot get context');
     return 2;
   }
 
-  if (!initShaders(gl, VSHADER_SOURCE, FSHADER_SOURCE)) {
+  if (!initShaders(gl, vertexShader, fragmentShader)) {
     console.log('Failed to initialize shaders');
     return 3;
   }
+
+  const aPosition = gl.getAttribLocation((<any>gl).program, 'a_Position');
+  const aPointSize = gl.getAttribLocation((<any>gl).program, 'a_PointSize');
+  if (aPosition < 0 || aPointSize < 0) {
+    console.log(
+      'Fail to get the storage location of a_Position or a_PointSize'
+    );
+    return 4;
+  }
+
+  gl.vertexAttrib3f(aPosition, 0, 0, 0);
+  gl.vertexAttrib1f(aPointSize, 10.0);
 
   gl.clearColor(0, 0, 0, 1);
   gl.clear(gl.COLOR_BUFFER_BIT);
