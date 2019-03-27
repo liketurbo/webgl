@@ -1,5 +1,6 @@
 import { getWebGLContext, initShaders } from './lib/cuon-utils';
-import click from './mouse';
+import click from './listeners/mouse';
+import err from './utils/error';
 
 const vertexShader = require('./shaders/vertex.glsl');
 const fragmentShader = require('./shaders/fragment.glsl');
@@ -7,37 +8,28 @@ const fragmentShader = require('./shaders/fragment.glsl');
 (<any>window).start = () => {
   const canvas = <HTMLCanvasElement>document.getElementById('example');
 
-  if (!canvas) {
-    console.log('Failed retrieve canvas');
-    return 1;
-  }
+  if (!canvas) return err('frt');
 
-  const gl = (<any>getWebGLContext)(canvas) as WebGLRenderingContext | null;
+  const gl = (<any>getWebGLContext)(canvas) as
+    | WebGLRenderingContext & { program: WebGLProgram }
+    | null;
 
-  if (!gl) {
-    console.log('Cannot get context');
-    return 2;
-  }
+  if (!gl) return err('cgc');
 
-  if (!initShaders(gl, vertexShader, fragmentShader)) {
-    console.log('Failed to initialize shaders');
-    return 3;
-  }
+  if (!initShaders(gl, vertexShader, fragmentShader)) return err('fis');
 
-  const aPosition = gl.getAttribLocation((<any>gl).program, 'a_Position');
-  const aPointSize = gl.getAttribLocation((<any>gl).program, 'a_PointSize');
-  if (aPosition < 0 || aPointSize < 0) {
-    console.log(
-      'Fail to get the storage location of a_Position or a_PointSize'
-    );
-    return 4;
-  }
+  const aPosition = gl.getAttribLocation(gl.program, 'a_Position');
+  const aPointSize = gl.getAttribLocation(gl.program, 'a_PointSize');
+  var uFragColor = gl.getUniformLocation(gl.program, 'u_FragColor');
+
+  if (aPosition < 0 || aPointSize < 0)
+    return err('fgst', 'a_Position', 'a_PointSize');
 
   gl.vertexAttrib3f(aPosition, 0, 0, 0);
   gl.vertexAttrib1f(aPointSize, 10.0);
 
   canvas.onmousedown = e => {
-    click(e, gl, canvas, aPosition);
+    click(e, gl, canvas, aPosition, uFragColor!);
   };
 
   gl.clearColor(0, 0, 0, 1);

@@ -1,0 +1,18 @@
+{
+  "frt": {
+    "id": 1,
+    "msg": "Failed retrieve canvas"
+  },
+  "cgc": {
+    "id": 2,
+    "msg": "Cannot get context"
+  },
+  "fis": {
+    "id": 3,
+    "msg": "Failed to initialize shaders"
+  },
+  "fgst": {
+    "id": 4,
+    "msg": "Fail to get the storage location"
+  }
+}
