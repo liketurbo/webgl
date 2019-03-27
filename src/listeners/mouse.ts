@@ -21,6 +21,9 @@ const click = (
   if (x >= 0.0 && y >= 0.0) {
     // First quadrant
     gColors.push([1.0, 0.0, 0.0, 1.0]); // Red
+  } else if (x < 0.0 && y >= 0.0) {
+    // Second quadrant
+    gColors.push([0.0, 0.0, 1.0, 1.0]); // Red
   } else if (x < 0.0 && y < 0.0) {
     // Third quadrant
     gColors.push([0.0, 1.0, 0.0, 1.0]); // Green

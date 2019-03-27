@@ -20,16 +20,15 @@ const fragmentShader = require('./shaders/fragment.glsl');
 
   const aPosition = gl.getAttribLocation(gl.program, 'a_Position');
   const aPointSize = gl.getAttribLocation(gl.program, 'a_PointSize');
-  var uFragColor = gl.getUniformLocation(gl.program, 'u_FragColor');
+  const uFragColor = gl.getUniformLocation(gl.program, 'u_FragColor');
 
-  if (aPosition < 0 || aPointSize < 0)
-    return err('fgst', 'a_Position', 'a_PointSize');
+  if (aPosition < 0 || aPointSize < 0 || !uFragColor) return err('fgst');
 
   gl.vertexAttrib3f(aPosition, 0, 0, 0);
   gl.vertexAttrib1f(aPointSize, 10.0);
 
   canvas.onmousedown = e => {
-    click(e, gl, canvas, aPosition, uFragColor!);
+    click(e, gl, canvas, aPosition, uFragColor);
   };
 
   gl.clearColor(0, 0, 0, 1);
