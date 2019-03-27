@@ -1,4 +1,5 @@
 import { getWebGLContext, initShaders } from './lib/cuon-utils';
+import click from './mouse';
 
 const vertexShader = require('./shaders/vertex.glsl');
 const fragmentShader = require('./shaders/fragment.glsl');
@@ -35,10 +36,12 @@ const fragmentShader = require('./shaders/fragment.glsl');
   gl.vertexAttrib3f(aPosition, 0, 0, 0);
   gl.vertexAttrib1f(aPointSize, 10.0);
 
+  canvas.onmousedown = e => {
+    click(e, gl, canvas, aPosition);
+  };
+
   gl.clearColor(0, 0, 0, 1);
   gl.clear(gl.COLOR_BUFFER_BIT);
-
-  gl.drawArrays(gl.POINTS, 0, 1);
 
   return 0;
 };
