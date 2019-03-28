@@ -14,5 +14,13 @@
   "fgst": {
     "id": 4,
     "msg": "Fail to get the storage location"
+  },
+  "fcbo": {
+    "id": 5,
+    "msg": "Failed to create the buffer object"
+  },
+  "fspv": {
+    "id": 6,
+    "msg": "Failed to set the positions of the vertices"
   }
 }

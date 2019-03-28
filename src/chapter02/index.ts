@@ -1,6 +1,6 @@
-import { getWebGLContext, initShaders } from './lib/cuon-utils';
+import { getWebGLContext, initShaders } from '../common/lib/cuon-utils';
+import err from '../common/utils/error';
 import click from './listeners/mouse';
-import err from './utils/error';
 
 const vertexShader = require('./shaders/vertex.glsl');
 const fragmentShader = require('./shaders/fragment.glsl');
