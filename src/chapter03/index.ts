@@ -23,15 +23,19 @@ const fragmentShader = require('./shaders/fragment.glsl');
 
   const aPosition = gl.getAttribLocation(gl.program, 'a_Position');
   const uFragColor = gl.getUniformLocation(gl.program, 'u_FragColor');
+  const uTranslation = gl.getUniformLocation(gl.program, 'u_Translation');
 
-  if (aPosition < 0 || !uFragColor) return err('fgst');
+  if (aPosition < 0 || !uFragColor || !uTranslation) return err('fgst');
 
   gl.vertexAttrib3f(aPosition, 0, 0, 0);
+
+  const tr = [0.5, 0.5, 0.0];
+  gl.uniform4f(uTranslation, tr[0], tr[1], tr[2], 0.0);
 
   gl.clearColor(0, 0, 0, 1);
   gl.clear(gl.COLOR_BUFFER_BIT);
 
-  gl.drawArrays(gl.POINTS, 0, n);
+  gl.drawArrays(gl.TRIANGLES, 0, n);
 
   return 0;
 };
