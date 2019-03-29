@@ -15,12 +15,12 @@ const initVertexBuffers = (
   // Write date into the buffer object
   gl.bufferData(gl.ARRAY_BUFFER, vertices, gl.STATIC_DRAW);
 
-  var a_Position = gl.getAttribLocation(gl.program, 'a_Position');
+  const aPosition = gl.getAttribLocation(gl.program, 'a_Position');
 
   // Assign the buffer object to a_Position variable
-  gl.vertexAttribPointer(a_Position, 2, gl.FLOAT, false, 0, 0);
+  gl.vertexAttribPointer(aPosition, 2, gl.FLOAT, false, 0, 0);
   // Enable the assignment to a_Position variable
-  gl.enableVertexAttribArray(a_Position);
+  gl.enableVertexAttribArray(aPosition);
 
   return n;
 };
