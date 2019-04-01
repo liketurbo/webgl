@@ -50,6 +50,8 @@ const fragmentShader = require('./shaders/fragment.glsl');
   const scalingMatrix = new Matrix4().setScale(sX, sY, sZ);
 
   gl.vertexAttrib3f(aPosition, 0, 0, 0);
+  gl.uniform4f(uFragColor, 1.0, 0.0, 0.0, 1);
+
   gl.uniformMatrix4fv(uTranslationMatrix, false, translationMatrix.elements);
   gl.uniformMatrix4fv(uRotationMatrix, false, rotationMatrix.elements);
   gl.uniformMatrix4fv(uScalingMatrix, false, scalingMatrix.elements);
