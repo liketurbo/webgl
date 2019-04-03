@@ -3,7 +3,7 @@ import err from '../../common/utils/error';
 const initVertexBuffers = (
   gl: WebGLRenderingContext & { program: WebGLProgram }
 ) => {
-  var vertices = new Float32Array([0.0, 0.5, -0.5, -0.5, 0.5, -0.5]);
+  var vertices = new Float32Array([0.0, 0.3, -0.3, -0.3, 0.3, -0.3]);
   var n = 3; // The number of vertices
 
   // Create a buffer object

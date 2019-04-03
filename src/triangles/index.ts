@@ -6,14 +6,16 @@ import initVertexBuffers from './utils/init-vertex-buffers';
 const vertexShader = require('./shaders/vertex.glsl');
 const fragmentShader = require('./shaders/fragment.glsl');
 
+type WebGLContext = WebGLRenderingContext & { program: WebGLProgram };
+const type = new Matrix4();
+type Matrix4 = typeof type;
+
 (<any>window).start = () => {
   const canvas = <HTMLCanvasElement>document.getElementById('example');
 
   if (!canvas) return err('frt');
 
-  const gl = (<any>getWebGLContext)(canvas) as
-    | WebGLRenderingContext & { program: WebGLProgram }
-    | null;
+  const gl = (<any>getWebGLContext)(canvas) as WebGLContext;
 
   if (!gl) return err('cgc');
 
@@ -24,42 +26,67 @@ const fragmentShader = require('./shaders/fragment.glsl');
 
   const aPosition = gl.getAttribLocation(gl.program, 'a_Position');
   const uFragColor = gl.getUniformLocation(gl.program, 'u_FragColor');
-  const uRotationMatrix = gl.getUniformLocation(gl.program, 'u_Rotation');
-  const uTranslationMatrix = gl.getUniformLocation(gl.program, 'u_Translation');
-  const uScalingMatrix = gl.getUniformLocation(gl.program, 'u_Scaling');
+  const uModelMatrix = gl.getUniformLocation(gl.program, 'u_ModelMatrix');
 
-  if (
-    aPosition < 0 ||
-    !uFragColor ||
-    !uRotationMatrix ||
-    !uTranslationMatrix ||
-    !uScalingMatrix
-  )
-    return err('fgst');
+  if (aPosition < 0 || !uFragColor || !uModelMatrix) return err('fgst');
 
-  const angle = 0;
-  const tX = 0.0,
-    tY = 0.0,
-    tZ = 0.0;
-  const sX = 1.25,
-    sY = 1.25,
-    sZ = 1.25;
+  // Current rotation angle of a triangle
+  let currentAngle = 0.0;
+  // Matrix4 object for model transformation
+  const modelMatrix = new Matrix4();
 
-  const rotationMatrix = new Matrix4().setRotate(angle, 0, 0, 1);
-  const translationMatrix = new Matrix4().setTranslate(tX, tY, tZ);
-  const scalingMatrix = new Matrix4().setScale(sX, sY, sZ);
+  const tick = function() {
+    draw(
+      gl,
+      n,
+      (currentAngle = animate(currentAngle)),
+      modelMatrix,
+      uModelMatrix
+    );
+    requestAnimationFrame(tick); // Request that the browser calls tick
+  };
+  tick();
 
+  gl.clearColor(0, 0, 0, 1);
   gl.vertexAttrib3f(aPosition, 0, 0, 0);
   gl.uniform4f(uFragColor, 1.0, 0.0, 0.0, 1);
 
-  gl.uniformMatrix4fv(uTranslationMatrix, false, translationMatrix.elements);
-  gl.uniformMatrix4fv(uRotationMatrix, false, rotationMatrix.elements);
-  gl.uniformMatrix4fv(uScalingMatrix, false, scalingMatrix.elements);
+  return 0;
+};
 
-  gl.clearColor(0, 0, 0, 1);
+const draw = (
+  gl: WebGLContext,
+  n: number,
+  currentAngle: number,
+  modelMatrix: Matrix4,
+  u_ModelMatrix: WebGLUniformLocation
+) => {
+  // Set up rotation matrix
+  modelMatrix.setRotate(currentAngle, 0, 0, 1);
+  modelMatrix.translate(0.35, 0, 0);
+
+  // Pass the rotation matrix to the vertex shader
+  gl.uniformMatrix4fv(u_ModelMatrix, false, modelMatrix.elements);
+
+  // Clear <canvas>
   gl.clear(gl.COLOR_BUFFER_BIT);
 
+  // Draw a triangle
   gl.drawArrays(gl.TRIANGLES, 0, n);
+};
 
-  return 0;
+// Last time when this function was called
+let last = Date.now();
+const animate = (angle: number) => {
+  // Degree per second
+  const angleStep = 45.0;
+
+  // Calculate the elapsed time
+  let now = Date.now();
+  const elapsed = now - last; // milliseconds
+  last = now;
+
+  // Update the current rotation angle (adjusted by the elapsed time)
+  const newAngle = angle + (angleStep * elapsed) / 500.0;
+  return newAngle % 360;
 };
