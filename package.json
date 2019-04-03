@@ -2,6 +2,8 @@
   "name": "webgl",
   "version": "1.0.0",
   "main": "index.js",
+  "repository": "https://github.com/liketurbo/webgl",
+  "author": "Ramzan Chasygov <theliketurbo@gmail.com>",
   "license": "MIT",
   "scripts": {
     "start": "parcel src/index.html"
