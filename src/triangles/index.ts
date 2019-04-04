@@ -25,7 +25,7 @@ const fragmentShader = require('./shaders/fragment.glsl');
   const uFragColor = gl.getUniformLocation(gl.program, 'u_FragColor');
   const uModelMatrix = gl.getUniformLocation(gl.program, 'u_ModelMatrix');
 
-  if (aPosition < 0 || !uFragColor || !uModelMatrix) return err('fgst');
+  if (aPosition < 0 || !uFragColor || !uModelMatrix) return err('fgsl');
 
   // Current rotation angle of a triangle
   let currentAngle = 0.0;

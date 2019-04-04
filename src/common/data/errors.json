@@ -11,7 +11,7 @@
     "id": 3,
     "msg": "Failed to initialize shaders"
   },
-  "fgst": {
+  "fgsl": {
     "id": 4,
     "msg": "Fail to get the storage location"
   },

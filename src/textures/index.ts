@@ -23,7 +23,7 @@ const fragmentShader = require('./shaders/fragment.glsl');
   const aPosition = gl.getAttribLocation(gl.program, 'a_Position');
   const uFragColor = gl.getUniformLocation(gl.program, 'u_FragColor');
 
-  if (aPosition < 0 || !uFragColor) return err('fgst');
+  if (aPosition < 0 || !uFragColor) return err('fgsl');
   gl.vertexAttrib3f(aPosition, 0, 0, 0);
   gl.uniform4f(uFragColor, 1.0, 0.0, 0.0, 1);
 
