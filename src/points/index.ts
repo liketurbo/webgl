@@ -1,4 +1,5 @@
 import { getWebGLContext, initShaders } from '../common/lib/cuon-utils';
+import { WebGLContext } from '../common/types/webgl';
 import err from '../common/utils/error';
 import click from './listeners/mouse';
 
@@ -10,9 +11,7 @@ const fragmentShader = require('./shaders/fragment.glsl');
 
   if (!canvas) return err('frt');
 
-  const gl = (<any>getWebGLContext)(canvas) as
-    | WebGLRenderingContext & { program: WebGLProgram }
-    | null;
+  const gl = (<any>getWebGLContext)(canvas) as WebGLContext;
 
   if (!gl) return err('cgc');
 

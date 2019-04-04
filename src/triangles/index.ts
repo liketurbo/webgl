@@ -1,14 +1,11 @@
 import { Matrix4 } from '../common/lib/cuon-matrix';
 import { getWebGLContext, initShaders } from '../common/lib/cuon-utils';
+import { CMatrix, WebGLContext } from '../common/types/webgl';
 import err from '../common/utils/error';
 import initVertexBuffers from './utils/init-vertex-buffers';
 
 const vertexShader = require('./shaders/vertex.glsl');
 const fragmentShader = require('./shaders/fragment.glsl');
-
-type WebGLContext = WebGLRenderingContext & { program: WebGLProgram };
-const type = new Matrix4();
-type Matrix4 = typeof type;
 
 (<any>window).start = () => {
   const canvas = <HTMLCanvasElement>document.getElementById('example');
@@ -58,7 +55,7 @@ const draw = (
   gl: WebGLContext,
   n: number,
   currentAngle: number,
-  modelMatrix: Matrix4,
+  modelMatrix: CMatrix,
   u_ModelMatrix: WebGLUniformLocation
 ) => {
   // Set up rotation matrix
