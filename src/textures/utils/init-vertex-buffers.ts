@@ -2,13 +2,17 @@ import { WebGLContext } from '../../common/types/webgl';
 import err from '../../common/utils/error';
 
 const initVertexBuffers = (gl: WebGLContext) => {
-  const vertices = new Float32Array([0.0, 0.5, -0.5, -0.5, 0.5, -0.5]);
   const n = 3;
-
-  const sizes = new Float32Array([
-    10.0,
-    20.0,
-    30.0 // Point sizes
+  const verticesSizes = new Float32Array([
+    0.0,
+    0.5,
+    10.0, // 1st vertex
+    -0.5,
+    -0.5,
+    20.0, // 2nd vertex
+    0.5,
+    -0.5,
+    30.0 // 3rd vertex
   ]);
 
   // Create a buffer object
@@ -18,19 +22,36 @@ const initVertexBuffers = (gl: WebGLContext) => {
 
   // Write vertex coordinates to the buffer object and enable it
   gl.bindBuffer(gl.ARRAY_BUFFER, vertexBuffer);
-  gl.bufferData(gl.ARRAY_BUFFER, vertices, gl.STATIC_DRAW);
+  gl.bufferData(gl.ARRAY_BUFFER, verticesSizes, gl.STATIC_DRAW);
 
   const aPosition = gl.getAttribLocation(gl.program, 'a_Position');
-  const aPointSize = gl.getAttribLocation(gl.program, 'a_PointSize');
-  if (aPointSize < 0 || aPosition < 0) return err('fgsl');
+  if (aPosition < 0) return err('fgsl', 'a_Position');
 
-  gl.vertexAttribPointer(aPosition, 2, gl.FLOAT, false, 0, 0);
+  gl.vertexAttribPointer(
+    aPosition,
+    2,
+    gl.FLOAT,
+    false,
+    verticesSizes.BYTES_PER_ELEMENT * 3,
+    0
+  );
   gl.enableVertexAttribArray(aPosition);
 
   // Bind the point size buffer object to target
   gl.bindBuffer(gl.ARRAY_BUFFER, sizeBuffer);
-  gl.bufferData(gl.ARRAY_BUFFER, sizes, gl.STATIC_DRAW);
-  gl.vertexAttribPointer(aPointSize, 1, gl.FLOAT, false, 0, 0);
+  gl.bufferData(gl.ARRAY_BUFFER, verticesSizes, gl.STATIC_DRAW);
+
+  const aPointSize = gl.getAttribLocation(gl.program, 'a_PointSize');
+  if (aPointSize < 0) return err('fgsl', 'a_PointSize');
+
+  gl.vertexAttribPointer(
+    aPointSize,
+    1,
+    gl.FLOAT,
+    false,
+    verticesSizes.BYTES_PER_ELEMENT * 3,
+    verticesSizes.BYTES_PER_ELEMENT * 2
+  );
   gl.enableVertexAttribArray(aPointSize);
 
   // Unbind the buffer object
