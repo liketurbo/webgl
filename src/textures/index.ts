@@ -21,11 +21,9 @@ const fragmentShader = require('./shaders/fragment.glsl');
   if (n < 0) return err('fspv');
 
   const aPosition = gl.getAttribLocation(gl.program, 'a_Position');
-  const uFragColor = gl.getUniformLocation(gl.program, 'u_FragColor');
 
-  if (aPosition < 0 || !uFragColor) return err('fgsl');
+  if (aPosition < 0) return err('fgsl');
   gl.vertexAttrib3f(aPosition, 0, 0, 0);
-  gl.uniform4f(uFragColor, 1.0, 0.0, 0.0, 1);
 
   gl.clearColor(0, 0, 0, 1);
   gl.clear(gl.COLOR_BUFFER_BIT);
