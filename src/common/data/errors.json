@@ -22,5 +22,17 @@
   "fspv": {
     "id": 6,
     "msg": "Failed to set the positions of the vertices"
+  },
+  "fcto": {
+    "id": 7,
+    "msg": "Failed to create the texture object"
+  },
+  "fcio": {
+    "id": 8,
+    "msg": "Failed to create the image object"
+  },
+  "fit": {
+    "id": 9,
+    "msg": "Failed to initialize the texture"
   }
 }

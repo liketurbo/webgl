@@ -2,75 +2,39 @@ import { WebGLContext } from '../../common/types/webgl';
 import err from '../../common/utils/error';
 
 const initVertexBuffers = (gl: WebGLContext) => {
-  const n = 3;
-  const verticesSizesColors = new Float32Array([
-    0.0,
-    0.5,
-    10.0,
-    1.0,
-    0.0,
-    0.0, // 1st vertex
-    -0.5,
-    -0.5,
-    20.0,
-    0.0,
-    1.0,
-    0.0, // 2nd vertex
-    0.5,
-    -0.5,
-    30.0,
-    0.0,
-    0.0,
-    1.0 // 3rd vertex
+  // prettier-ignore
+  const verticesTexCoords = new Float32Array([
+    // Vertex coordinates, texture coordinate
+    -0.5, 0.5, 0.0, 1.0,
+    -0.5, -0.5, 0.0, 0.0,
+     0.5, 0.5, 1.0, 1.0,
+     0.5, -0.5, 1.0, 0.0,
   ]);
+  const n = 4; // The number of vertices
+  const s = verticesTexCoords.BYTES_PER_ELEMENT;
 
-  // Create a buffer object
-  const vertexSizeColorBuffer = gl.createBuffer();
-  if (!vertexSizeColorBuffer) return err('fcbo');
+  // Create the buffer object
+  const vertexTexCoordBuffer = gl.createBuffer();
+  if (!vertexTexCoordBuffer) return err('fcbo');
 
-  // Write vertex coordinates to the buffer object and enable it
-  gl.bindBuffer(gl.ARRAY_BUFFER, vertexSizeColorBuffer);
-  gl.bufferData(gl.ARRAY_BUFFER, verticesSizesColors, gl.STATIC_DRAW);
+  // Bind the buffer object to target
+  gl.bindBuffer(gl.ARRAY_BUFFER, vertexTexCoordBuffer);
+  gl.bufferData(gl.ARRAY_BUFFER, verticesTexCoords, gl.STATIC_DRAW);
 
+  //Get the storage location of a_Position, assign and enable buffer
   const aPosition = gl.getAttribLocation(gl.program, 'a_Position');
   if (aPosition < 0) return err('fgsl', 'a_Position');
 
-  gl.vertexAttribPointer(
-    aPosition,
-    2,
-    gl.FLOAT,
-    false,
-    verticesSizesColors.BYTES_PER_ELEMENT * 6,
-    0
-  );
-  gl.enableVertexAttribArray(aPosition);
+  gl.vertexAttribPointer(aPosition, 2, gl.FLOAT, false, s * 4, 0);
+  gl.enableVertexAttribArray(aPosition); // Enable the assignment of the buffer object
 
-  const aPointSize = gl.getAttribLocation(gl.program, 'a_PointSize');
-  if (aPointSize < 0) return err('fgsl', 'a_PointSize');
+  // Get the storage location of a_TexCoord
+  var aTexCoord = gl.getAttribLocation(gl.program, 'a_TexCoord');
+  if (aTexCoord < 0) return err('fgsl', 'a_TexCoord');
 
-  gl.vertexAttribPointer(
-    aPointSize,
-    1,
-    gl.FLOAT,
-    false,
-    verticesSizesColors.BYTES_PER_ELEMENT * 6,
-    verticesSizesColors.BYTES_PER_ELEMENT * 2
-  );
-  gl.enableVertexAttribArray(aPointSize);
-
-  const aColor = gl.getAttribLocation(gl.program, 'a_Color');
-  gl.vertexAttribPointer(
-    aColor,
-    3,
-    gl.FLOAT,
-    false,
-    verticesSizesColors.BYTES_PER_ELEMENT * 6,
-    verticesSizesColors.BYTES_PER_ELEMENT * 3
-  );
-  gl.enableVertexAttribArray(aColor); // Enable buffer allocation
-
-  // Unbind the buffer object
-  gl.bindBuffer(gl.ARRAY_BUFFER, null);
+  // Assign the buffer object to a_TexCoord variable
+  gl.vertexAttribPointer(aTexCoord, 2, gl.FLOAT, false, s * 4, s * 2);
+  gl.enableVertexAttribArray(aTexCoord); // Enable the assignment of the buffer object
 
   return n;
 };

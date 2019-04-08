@@ -1,6 +1,7 @@
 import { getWebGLContext, initShaders } from '../common/lib/cuon-utils';
 import { WebGLContext } from '../common/types/webgl';
 import err from '../common/utils/error';
+import initTextures from './utils/init-textures';
 import initVertexBuffers from './utils/init-vertex-buffers';
 
 const vertexShader = require('./shaders/vertex.glsl');
@@ -20,15 +21,10 @@ const fragmentShader = require('./shaders/fragment.glsl');
   const n = initVertexBuffers(gl);
   if (n < 0) return err('fspv');
 
-  const aPosition = gl.getAttribLocation(gl.program, 'a_Position');
-
-  if (aPosition < 0) return err('fgsl');
-  gl.vertexAttrib3f(aPosition, 0, 0, 0);
-
   gl.clearColor(0, 0, 0, 1);
-  gl.clear(gl.COLOR_BUFFER_BIT);
 
-  gl.drawArrays(gl.POINTS, 0, n);
+  // Set texture
+  if (!initTextures(gl, n)) err('fit');
 
   return 0;
 };
