@@ -1,9 +1,7 @@
 # WebGL
 
-## Commands
+## Projects
 
-To start
-
-```
-yarn start
-```
+- points
+- triangles
+- textures

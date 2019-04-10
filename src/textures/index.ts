@@ -24,7 +24,7 @@ const fragmentShader = require('./shaders/fragment.glsl');
   gl.clearColor(0, 0, 0, 1);
 
   // Set texture
-  if (!initTextures(gl, n)) err('fit');
+  if (!initTextures(gl, n)) return err('fit');
 
   return 0;
 };
