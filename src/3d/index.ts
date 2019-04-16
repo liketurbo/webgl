@@ -25,9 +25,9 @@ const fragmentShader = require('./shaders/fragment.glsl');
   const uViewMatrix = gl.getUniformLocation(gl.program, 'u_ViewMatrix');
   if (!uViewMatrix) return err('fgsl', 'u_ViewMatrix');
 
-  // Set the eye point, look-at point, and up direction
   const viewMatrix = new Matrix4();
-  viewMatrix.setLookAt(0.2, 0.25, 0.25, 0, 0, 0, 0, 1, 0);
+  viewMatrix.setLookAt(0.2, 0.25, 0.25, 0, 0, 0, 0, 1, 0).rotate(-10, 0, 0, 1);
+  // Set the eye point, look-at point, and up direction
 
   // Pass the view matrix to u_ViewMatrix variable
   gl.uniformMatrix4fv(uViewMatrix, false, viewMatrix.elements);

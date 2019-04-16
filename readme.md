@@ -8,6 +8,10 @@
 - triangles
 - textures
 
+## Keep in mind 🤓
+
+![clientX vs pageX](https://i.stack.imgur.com/4C3no.png)
+
 ## Qualifiers
 
 ### Parameter
