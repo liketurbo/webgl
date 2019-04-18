@@ -7,6 +7,7 @@
 - points
 - triangles
 - textures
+- 3d
 
 ## Keep in mind 🤓
 

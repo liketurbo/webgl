@@ -3,36 +3,40 @@
     "id": 1,
     "msg": "Failed retrieve canvas"
   },
-  "cgc": {
+  "fre": {
     "id": 2,
+    "msg": "Failed retrieve element"
+  },
+  "cgc": {
+    "id": 3,
     "msg": "Cannot get context"
   },
   "fis": {
-    "id": 3,
+    "id": 4,
     "msg": "Failed to initialize shaders"
   },
   "fgsl": {
-    "id": 4,
+    "id": 5,
     "msg": "Fail to get the storage location"
   },
   "fcbo": {
-    "id": 5,
+    "id": 6,
     "msg": "Failed to create the buffer object"
   },
   "fspv": {
-    "id": 6,
+    "id": 7,
     "msg": "Failed to set the positions of the vertices"
   },
   "fcto": {
-    "id": 7,
+    "id": 8,
     "msg": "Failed to create the texture object"
   },
   "fcio": {
-    "id": 8,
+    "id": 9,
     "msg": "Failed to create the image object"
   },
   "fit": {
-    "id": 9,
+    "id": 10,
     "msg": "Failed to initialize the texture"
   }
 }
