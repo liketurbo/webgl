@@ -2,6 +2,7 @@ import { Matrix4 } from '../common/lib/cuon-matrix';
 import { getWebGLContext, initShaders } from '../common/lib/cuon-utils';
 import { WebGLContext } from '../common/types/webgl';
 import err from '../common/utils/error';
+import keydown from './listeners/keyboard';
 import initVertexBuffers from './utils/init-vertex-buffers';
 
 const vertexShader = require('./shaders/vertex.glsl');
@@ -34,6 +35,10 @@ const fragmentShader = require('./shaders/fragment.glsl');
 
   gl.clearColor(0, 0, 0, 1);
   gl.clear(gl.COLOR_BUFFER_BIT);
+
+  document.onkeydown = e => {
+    keydown(e, gl, n, uViewMatrix, viewMatrix);
+  };
 
   // Draw a triangle
   gl.drawArrays(gl.TRIANGLES, 0, n);
