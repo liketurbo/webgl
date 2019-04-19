@@ -1,3 +1,5 @@
+import round from 'lodash/round';
+
 import { CMatrix, WebGLContext } from '../../common/types/webgl';
 
 const draw = (
@@ -16,11 +18,7 @@ const draw = (
   gl.clear(gl.COLOR_BUFFER_BIT); // Clear <canvas>
 
   // Display the current near and far values
-  nf.innerHTML =
-    'near: ' +
-    Math.round(gNear * 100) / 100 +
-    ', far: ' +
-    Math.round(gFar * 100) / 100;
+  nf.innerHTML = `near: ${round(gNear, 2)}, far: ${round(gFar, 2)}`;
 
   gl.drawArrays(gl.TRIANGLES, 0, n); // Draw the triangles
 };

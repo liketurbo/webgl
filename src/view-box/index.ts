@@ -13,7 +13,7 @@ const fragmentShader = require('./shaders/fragment.glsl');
   if (!canvas) return err('frt');
 
   // Retrieve the nearFar element
-  const nf = document.getElementById('nearFar');
+  const nf = document.getElementById('near-far');
   if (!nf) return err('fre');
 
   const gl = (<any>getWebGLContext)(canvas) as WebGLContext;
