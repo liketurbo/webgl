@@ -4,10 +4,11 @@
 
 ## Projects
 
-- points
-- triangles
-- textures
+- Points
+- Triangles
+- Textures
 - 3d
+- View box
 
 ## Keep in mind 🤓
 
