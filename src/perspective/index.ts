@@ -28,6 +28,13 @@ const fragmentShader = require('./shaders/fragment.glsl');
   const uProjMatrix = gl.getUniformLocation(gl.program, 'u_ProjMatrix');
   if (!uProjMatrix) return err('fgsl', 'u_ProjMatrix');
 
+  const uModelMatrix = gl.getUniformLocation(gl.program, 'u_ModelMatrix');
+  if (!uModelMatrix) return err('fgsl', 'u_ModelMatrix');
+
+  const modelMatrix = new Matrix4();
+  modelMatrix.setTranslate(0.75, 0, 0);
+  gl.uniformMatrix4fv(uModelMatrix, false, modelMatrix.elements);
+
   const viewMatrix = new Matrix4();
   viewMatrix.setLookAt(0, 0, 5, 0, 0, -100, 0, 1, 0);
   // Set the eye point, look-at point, and up direction
@@ -44,5 +51,11 @@ const fragmentShader = require('./shaders/fragment.glsl');
 
   // Draw a triangle
   gl.drawArrays(gl.TRIANGLES, 0, n);
+
+  modelMatrix.setTranslate(-0.75, 0, 0);
+  gl.uniformMatrix4fv(uModelMatrix, false, modelMatrix.elements);
+  // Draw a triangle
+  gl.drawArrays(gl.TRIANGLES, 0, n);
+
   return 0;
 };

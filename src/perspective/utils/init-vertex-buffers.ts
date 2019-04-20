@@ -4,35 +4,21 @@ import err from '../../common/utils/error';
 const initVertexBuffers = (gl: WebGLContext) => {
   // prettier-ignore
   const verticesColors = new Float32Array([
-  // Three triangles on the right side
-  0.75, 1.0, -4.0, 0.4, 1.0, 0.4, // The green triangle in back
-  0.25, -1.0, -4.0, 0.4, 1.0, 0.4,
-  1.25, -1.0, -4.0, 1.0, 0.4, 0.4,
+    // Vertex coordinates and color
+    0.0, 1.0, -4.0, 0.4, 1.0, 0.4, // The back green triangle
+    -0.5, -1.0, -4.0, 0.4, 1.0, 0.4,
+    0.5, -1.0, -4.0, 1.0, 0.4, 0.4,
 
-  0.75, 1.0, -2.0, 1.0, 1.0, 0.4, // The yellow triangle in middle
-  0.25, -1.0, -2.0, 1.0, 1.0, 0.4,
-  1.25, -1.0, -2.0, 1.0, 0.4, 0.4,
+    0.0, 1.0, -2.0, 1.0, 1.0, 0.4, // The middle yellow triangle
+    -0.5, -1.0, -2.0, 1.0, 1.0, 0.4,
+    0.5, -1.0, -2.0, 1.0, 0.4, 0.4,
 
-  0.75, 1.0, 0.0, 0.4, 0.4, 1.0, // The blue triangle in front
-  0.25, -1.0, 0.0, 0.4, 0.4, 1.0,
-  1.25, -1.0, 0.0, 1.0, 0.4, 0.4,
-
-  // Three triangles on the left side
-  -0.75, 1.0, -4.0, 0.4, 1.0, 0.4, // The green triangle in back
-  -1.25, -1.0, -4.0, 0.4, 1.0, 0.4,
-  -0.25, -1.0, -4.0, 1.0, 0.4, 0.4,
-
-  -0.75, 1.0, -2.0, 1.0, 1.0, 0.4, // The yellow triangle in middle
-  -1.25, -1.0, -2.0, 1.0, 1.0, 0.4,
-  -0.25, -1.0, -2.0, 1.0, 0.4, 0.4,
-
-  -0.75, 1.0, 0.0, 0.4, 0.4, 1.0, // The blue triangle in front
-  -1.25, -1.0, 0.0, 0.4, 0.4, 1.0,
-  -0.25, -1.0, 0.0, 1.0, 0.4, 0.4,
+    0.0, 1.0, 0.0, 0.4, 0.4, 1.0, // The front blue triangle
+    -0.5, -1.0, 0.0, 0.4, 0.4, 1.0,
+    0.5, -1.0, 0.0, 1.0, 0.4, 0.4,
   ]);
-  const n = 18; // Three vertices per triangle * 6
+  const n = 9;
   const s = verticesColors.BYTES_PER_ELEMENT;
-
   // Create a buffer object
   const vertexColorBuffer = gl.createBuffer();
   if (!vertexColorBuffer) return err('fcbo');
