@@ -2,7 +2,6 @@ import { Matrix4 } from '../common/lib/cuon-matrix';
 import { getWebGLContext, initShaders } from '../common/lib/cuon-utils';
 import { WebGLContext } from '../common/types/webgl';
 import err from '../common/utils/error';
-import keydown from './listeners/keyboard';
 import initVertexBuffers from './utils/init-vertex-buffers';
 
 const vertexShader = require('./shaders/vertex.glsl');
@@ -30,22 +29,18 @@ const fragmentShader = require('./shaders/fragment.glsl');
   if (!uProjMatrix) return err('fgsl', 'u_ProjMatrix');
 
   const viewMatrix = new Matrix4();
-  viewMatrix.setLookAt(0.2, 0.25, 0.25, 0, 0, 0, 0, 1, 0).rotate(-10, 0, 0, 1);
+  viewMatrix.setLookAt(0, 0, 5, 0, 0, -100, 0, 1, 0);
   // Set the eye point, look-at point, and up direction
 
   // Pass the view matrix to u_ViewMatrix variable
   gl.uniformMatrix4fv(uViewMatrix, false, viewMatrix.elements);
 
   const projMatrix = new Matrix4();
-  projMatrix.setOrtho(-1.0, 1.0, -1.0, 1.0, 0.0, 2.0);
+  projMatrix.setPerspective(30, canvas.width / canvas.height, 1, 100);
   gl.uniformMatrix4fv(uProjMatrix, false, projMatrix.elements);
 
   gl.clearColor(0, 0, 0, 1);
   gl.clear(gl.COLOR_BUFFER_BIT);
-
-  document.onkeydown = e => {
-    keydown(e, gl, n, uViewMatrix, viewMatrix);
-  };
 
   // Draw a triangle
   gl.drawArrays(gl.TRIANGLES, 0, n);
