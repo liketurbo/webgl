@@ -10,6 +10,10 @@
 - 3d
 - View box
 
+## Order
+
+<tt>Buffer Object (vertices) → `attribute` → Vertex Shader → `gl_Position` → Shape Assembly → Rasterization → Fragment Shader → `gl_FragColor` → Color Buffer </tt>
+
 ## Keep in mind 🤓
 
 ![clientX vs pageX](https://i.stack.imgur.com/4C3no.png)
