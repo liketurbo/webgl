@@ -7,8 +7,9 @@
 - Points
 - Triangles
 - Textures
-- 3d
+- 3D
 - View box
+- Perspective
 
 ## Order
 
