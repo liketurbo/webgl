@@ -38,5 +38,9 @@
   "fit": {
     "id": 10,
     "msg": "Failed to initialize the texture"
+  },
+  "fiab": {
+    "id": 11,
+    "msg": "Failed to initialize array buffer"
   }
 }

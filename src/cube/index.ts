@@ -2,7 +2,7 @@ import { Matrix4 } from '../common/lib/cuon-matrix';
 import { getWebGLContext, initShaders } from '../common/lib/cuon-utils';
 import { WebGLContext } from '../common/types/webgl';
 import err from '../common/utils/error';
-import initVertexBuffers from './utils/init-vertex-buffers';
+import initVertexBuffers from './initializators/init-buffers';
 
 const vertexShader = require('./shaders/vertex.glsl');
 const fragmentShader = require('./shaders/fragment.glsl');

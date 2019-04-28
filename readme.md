@@ -11,7 +11,14 @@
 - View box
 - Perspective
 
-## Order
+## Glossary ☎️
+
+<b><tt>buffer object</tt></b> a contiguous block of memory in the GPU that stores rendering data for a model. For WebGL, a buffer object is always a 1D array of floats.
+
+- `gl.ELEMENT_ARRAY_BUFFER` for vertices only for vertices (cause it understands only `[[1,2,3],[4,5,6],...]`)
+- `gl.ARRAY_BUFFER` for other data
+
+## Order 🔀
 
 <tt>Buffer Object (vertices) → `attribute` → Vertex Shader → `gl_Position` → Shape Assembly → Rasterization → Fragment Shader → `gl_FragColor` → Color Buffer </tt>
 
