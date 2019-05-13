@@ -10,6 +10,8 @@
 - 3D
 - View box
 - Perspective
+- Cube
+- Light (direct)
 
 ## Glossary ☎️
 
@@ -80,4 +82,16 @@ v2 = v3.yz; // sets v2 to (2.0, 3.0). Any component can be omitted
 v2 = v3.xz; // sets v2 to (1.0, 3.0). You can skip any component.
 v2 = v3.yx; // sets v2 to (2.0, 1.0). You can reverse the order.
 v2 = v3.xx; // sets v2 to (1.0, 1.0). You can repeat any component.
+```
+
+## Light
+
+> Different kinds
+> ![lights](https://raw.githubusercontent.com/liketurbo/webgl/master/images/lights.png)
+
+> Light angle
+> ![light direction](https://raw.githubusercontent.com/liketurbo/webgl/master/images/light-direction.png)
+
+```
+[Color of surface after exposition with d. light] = [light color] × [surface color] × ([light direction] · [surface direction])
 ```
